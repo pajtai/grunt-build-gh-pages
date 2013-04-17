@@ -17,6 +17,13 @@ One the plugin has been installed, it may be enabled inside your Gruntfile with 
 grunt.loadNpmTasks('grunt-build-gh-pages');
 ```
 
+## Assumptions
+
+* This task is run after you have run the build task (or as the end part of your build task)
+  * The full build must be in the distribution directory at the beginning of this task.
+* A separate branch that has just the builds exists
+* You want to auto push to that separate branch when you run this task!
+
 ## The "build_gh_pages" task
 
 ### Overview
