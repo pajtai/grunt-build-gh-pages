@@ -56,11 +56,6 @@ module.exports = function (grunt) {
     grunt.registerTask("build", [
         'clean',
         'copy',
-        'grunt_build_gh_pages'
-//        'shell:getRef',
-//        'shell:getBranch',
-//        'shell:switch',
-//        'bumpBuild',
-//        'shell:finish'
+        'grunt_build_gh_pages:example'
     ]);
 };
