@@ -37,17 +37,12 @@ grunt.initConfig({
 
 ### Options
 
-#### options.separator
-Type: `String`
-Default value: `',  '`
-
-A string value that is used to do something with whatever.
-
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
-
-A string value that is used to do something else with whatever else.
+* `dist`: The directory the build is placed in. This directory should be gitignored in your current branch and the build branch.
+  * Default: "dist" 
+* `build_branch`: The name of the branch the build should be commited to. This branch should exist. Ideally it should be an orphan branch.
+  * Default: "gh-pages"   
+* `pull`: Whether you want to the a `git pull --rebase` on the build branch before modifying it. Use this if mutliple people can build to the repo.
+  * Default: true 
 
 ### Usage Examples
 
@@ -57,27 +52,16 @@ In this example, the default options are used to do something with whatever. So 
 ```js
 grunt.initConfig({
   build_gh_pages: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
+    gh_pages: {
+      // Leave empty if you just want to run the defaults
     },
-  },
-})
-```
-
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
-
-```js
-grunt.initConfig({
-  build_gh_pages: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
+    production: {
+      options: {
+        build_branch: "prod",
+        dist: "prodOptimized",
+        pull: false
+      }
+    }
   },
 })
 ```
@@ -86,4 +70,4 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-_(Nothing yet)_
+* 2013 04 17 - Initial release
