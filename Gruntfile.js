@@ -14,68 +14,37 @@ module.exports = function (grunt) {
     grunt.loadTasks('tasks');
 
     // configurable paths
-    var yeomanConfig = {
-        app: 'app'
+    var config = {
+        app: 'app',
+
+        // These config values are the defaults for build_gh_pages,
+        // so they could be skipped in this case,
+        // but other values can be used
+        build_branch: 'gh-pages',
+        dist: 'dist',
+        pull: false
     };
 
     grunt.initConfig({
-        yeoman: yeomanConfig,
+        config: config,
         clean: ['dist'],
         build_gh_pages: {
             example: {
-
+                options: {
+                    build_branch: "<%= config.build_branch %>",
+                    dist: "<%= config.dist %>"
+                }
             }
         },
         copy: {
             build: {
                 files: [
-                    {expand: true, cwd: 'app/', src: ['**'], dest: 'dist/'}
+                    {expand: true, cwd: './', src: ['README.md'], dest: 'dist/'}
                 ]
             }
         },
         shell: {
 
-
-//            switch: {
-//                options: {
-//                    stderr: true,
-//                    stdout: true
-//                },
-//
-//                command: 'git checkout gh-pages ' +
-//                    // make sure you pull the latest from the repo before trying to commit new files.
-//                    '&& git pull --rebase '
-//            },
-//            finish: {
-//                options: {
-//                    stderr: true,
-//                    stdout: true
-//                },
-//
-//                command:
-//
-//// get a list of all files in stage and delete everything except for targets, node_modules, cache, temp, and logs
-//// rm does not delete root level hidden files
-//                    'ls | grep -v ^dist$ | grep -v ^node_modules$ | xargs rm -r ' +
-//
-//// copy from the stage folder to the current (root) folder
-//                    '&& cp -r dist/* . ' +
-//                    '&& rm -r dist ' +
-//
-//// add any files that may have been created
-//                    '&& git add -A ' +
-//
-//// commit all files using the version number as the commit message
-//// <%= %> is grunt templating
-//                    '&& git commit -am "Build: <%= grunt.file.read(".build") %> Branch: <%= grunt.config.get("buildGhPages.branch") %> Version: <%= grunt.config.get("buildGhPages.version") %> SHA: <%= grunt.config.get("buildGhPages.shaRef") %>"' +
-//
-//// push changes to gitlab
-//                    '&& git push origin gh-pages ' +
-//
-//// now that everything is done, we have to switch back to the branch we started from
-//// the - is a shortcutl for @{-1} which means we go back to the previous branch
-//                    '&& git checkout - '
-//            }
         }
     });
 
