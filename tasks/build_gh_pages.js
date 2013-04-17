@@ -46,8 +46,8 @@ module.exports = function(grunt) {
                         grunt.log.writeln("sha ref is: " + shaRef)
                             .writeln("version is: " + version);
 
-                        options.shaRef =  shaRef;
-                        options.version = version;
+                        grunt.config.set(prefix + ".shaRef", shaRef);
+                        grunt.config.set(prefix + ".version", version);
 
                         cb();
                     }
@@ -61,7 +61,7 @@ module.exports = function(grunt) {
                 options: {
                     callback: function(err, out, stderr, cb) {
                         grunt.log.writeln("branch is: " + out);
-                        options.branch = out;
+                        grunt.config.set(prefix + ".branch", out);
                         cb();
                     }
                 },
@@ -107,7 +107,7 @@ module.exports = function(grunt) {
 
 // commit all files using the version number as the commit message
 // <%= %> is grunt templating
-                    '&& git commit -am "Build: <%= grunt.file.read(".build") %> Branch: ' + options.branch + ' ' + options.version + ' SHA: ' + options.shaRef + '"' +
+                    '&& git commit -am "Build: <%= grunt.file.read(".build") %> Branch: <%= grunt.config.get(prefix + ".branch") %> <%= grunt.config.get(prefix + ".version") %> SHA: <%= grunt.config.get(prefix + ".shaRef") %>"' +
 
 // push changes to gitlab
                     '&& git push origin ' + options.build_branch +
