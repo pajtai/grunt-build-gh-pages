@@ -22,36 +22,58 @@ module.exports = function(grunt) {
 
     grunt.registerMultiTask('build_gh_pages', 'Take a build from this branch to another branch.', function() {
 
+        // this.name
+        // this.target
         // Merge task-specific and/or target-specific options with these defaults.
         var options = this.options({
-            dist: "dist"
-        });
+            dist: "dist",
+            branch: "gh-pages",
+            branchFrom: "dynamically set",
+            shaRef: "dynamically set",
+            version: "dynamically set"
+        }),
+            shell = "shell",
+            prefix = "build_gh_pages_,",
+            target = prefix + this.target,
 
-        // Iterate over all specified file groups.
-        this.files.forEach(function(f) {
-            // Concat specified files.
-            var src = f.src.filter(function(filepath) {
-                // Warn on and remove invalid source files (if nonull was set).
-                if (!grunt.file.exists(filepath)) {
-                    grunt.log.warn('Source file "' + filepath + '" not found.');
-                    return false;
-                } else {
-                    return true;
-                }
-            }).map(function(filepath) {
-                    // Read file source.
-                    return grunt.file.read(filepath);
-                }).join(grunt.util.normalizelf(options.separator));
+            // Shell tasks
+            getRef = {
+                options: {
+                    callback: function(err, out, stderr, cb) {
+                        var version = grunt.file.readJSON("package.json").version,
+                            shaRef =  out.substring(0, 7);
 
-            // Handle options.
-            src += options.punctuation;
+                        grunt.log.writeln("sha ref is: " + shaRef)
+                            .writeln("version is: " + version);
 
-            // Write the destination file.
-            grunt.file.write(f.dest, src);
+                        grunt.config.set(target + ".shaRef", shaRef);
+                        grunt.config.set(target + ".version", version);
 
-            // Print a success message.
-            grunt.log.writeln('File "' + f.dest + '" created.');
-        });
+                        cb();
+                    }
+                },
+
+                command: "git rev-parse HEAD"
+            },
+            getBranch = {
+                options: {
+                    callback: function(err, out, stderr, cb) {
+                        grunt.log.writeln("branch is: " + out);
+                        grunt.config.set(target + ".branch", out);
+                        cb();
+                    }
+                },
+
+                command: "git rev-parse --abbrev-ref HEAD"
+            };
+
+        grunt.config.set("shell." + prefix + "getRef", getRef);
+        grunt.config.set("shell." + prefix + "getBranch", getBranch);
+
+        grunt.task.run([
+            "shell:" + prefix + "getRef",
+            "shell:" + prefix + "getBranch"
+        ]);
     });
 
 };
