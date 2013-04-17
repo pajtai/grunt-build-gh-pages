@@ -17,6 +17,8 @@
  */
 module.exports = function(grunt) {
 
+    var path = require('path');
+
     // Please see the Grunt documentation for more information regarding task
     // creation: http://gruntjs.com/creating-tasks
 
@@ -125,7 +127,8 @@ module.exports = function(grunt) {
 
         grunt.registerTask(prefix + "bumpBuild", function () {
             var build = ".build";
-            grunt.file.write(build, parseInt(grunt.file.read(build), 10) + 1);
+
+            grunt.file.write(build, path.existsSync(build) ? parseInt(grunt.file.read(build), 10) + 1 : 1);
         });
 
         // run created shell tasks
