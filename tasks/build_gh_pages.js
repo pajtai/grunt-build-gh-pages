@@ -32,7 +32,7 @@ module.exports = function(grunt) {
             pull: true
         }),
             shell = "shell",
-            prefix = "build_gh_pages_,",
+            prefix = "build_gh_pages_",
 
             // Get the SHA reference of the current commit
             getRef = {
@@ -128,7 +128,7 @@ module.exports = function(grunt) {
             "shell:" + prefix + "getRef",
             "shell:" + prefix + "getBranch",
             "shell:" + prefix + "switchBranch",
-            "shell:" + prefix + "finsih"
+            "shell:" + prefix + "finish"
         ]);
     });
 
