@@ -33,7 +33,6 @@ module.exports = function(grunt) {
         }),
             shell = "shell",
             prefix = "build_gh_pages_,",
-            target = prefix + this.target,
 
             // Get the SHA reference of the current commit
             getRef = {
