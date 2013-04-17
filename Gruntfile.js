@@ -22,7 +22,7 @@ module.exports = function (grunt) {
         // but other values can be used
         build_branch: 'gh-pages',
         dist: 'dist',
-        pull: false
+        pull: true
     };
 
     grunt.initConfig({
@@ -42,9 +42,6 @@ module.exports = function (grunt) {
                     {expand: true, cwd: './', src: ['README.md'], dest: 'dist/'}
                 ]
             }
-        },
-        shell: {
-
         }
     });
 
