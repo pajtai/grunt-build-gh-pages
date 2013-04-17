@@ -123,11 +123,17 @@ module.exports = function(grunt) {
         grunt.config.set("shell." + prefix + "switchBranch", switchBranch);
         grunt.config.set("shell." + prefix + "finish", finish);
 
+        grunt.registerTask(prefix + "bumpBuild", function () {
+            var build = ".build";
+            grunt.file.write(build, parseInt(grunt.file.read(build), 10) + 1);
+        });
+
         // run created shell tasks
         grunt.task.run([
             "shell:" + prefix + "getRef",
             "shell:" + prefix + "getBranch",
             "shell:" + prefix + "switchBranch",
+            prefix + "bumpBuild",
             "shell:" + prefix + "finish"
         ]);
     });
