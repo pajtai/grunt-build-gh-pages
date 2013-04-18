@@ -2,6 +2,10 @@
 
 > Grunt plugin to take a build from dist on your current branch and put it into another branch, e.g. gh-pages, without merging. Ideal for when builds should be stored in orphan branches.
 
+## Note
+
+Tested on a Mac. Seems to currently have issues on Windows.
+
 ## Getting Started
 This plugin requires Grunt `~0.4.1`
 
