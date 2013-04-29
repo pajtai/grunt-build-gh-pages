@@ -19,6 +19,10 @@ module.exports = function(grunt) {
 
     var path = require('path');
 
+    // Make sure grunt-shell is loaded
+    // It is listed as a peer dependency
+    grunt.loadNpmTasks('grunt-shell');
+
     // Please see the Grunt documentation for more information regarding task
     // creation: http://gruntjs.com/creating-tasks
 
