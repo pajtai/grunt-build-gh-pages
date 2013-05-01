@@ -27,6 +27,7 @@ grunt.loadNpmTasks('grunt-build-gh-pages');
 
 ## Assumptions
 
+* You are using version of Node (0.8.19+) and NPM (1.1.6+) that support peer dependencies.
 * This task is run after you have run the build task (or as the end part of your build task)
   * The full build must be in the distribution directory at the beginning of this task.
 * A separate branch that has just the builds exists
