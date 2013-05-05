@@ -2,6 +2,14 @@
 
 > Grunt plugin to take a build from dist on your current branch and put it into another branch, e.g. gh-pages, without merging. Ideal for when builds should be stored in orphan branches.
 
+## Note
+
+Tested on a Mac. Seems to currently have issues on Windows.
+
+## Working Example
+
+If you'd like to play around with a working example, fork [exploratory-javascript-tests](https://github.com/pajtai/exploratory-javascript-tests), and run `npm install && grunt build`, then look at the `gh-pages` branch.
+
 ## Getting Started
 This plugin requires Grunt `~0.4.1`
 
@@ -19,6 +27,7 @@ grunt.loadNpmTasks('grunt-build-gh-pages');
 
 ## Assumptions
 
+* You are using version of Node (0.8.19+) and NPM (1.1.6+) that support peer dependencies.
 * This task is run after you have run the build task (or as the end part of your build task)
   * The full build must be in the distribution directory at the beginning of this task.
 * A separate branch that has just the builds exists
@@ -77,4 +86,5 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
+* 2013 04 29 - Adding grunt-shell as peer dependency - upped node needed to 0.8.19 to reflect
 * 2013 04 17 - Initial release
