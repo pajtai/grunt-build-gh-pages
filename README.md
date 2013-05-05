@@ -87,6 +87,6 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-* 2013 05 04 - Added ability to exclude custom directories in addition to `node_modules`
-* 2013 04 29 - Adding grunt-shell as peer dependency - upped node needed to 0.8.19 to reflect
-* 2013 04 17 - Initial release
+* 2013 05 04 - `0.0.3` - Added ability to exclude custom directories in addition to `node_modules`
+* 2013 04 29 - `0.0.2` - Adding grunt-shell as peer dependency - upped node needed to 0.8.19 to reflect
+* 2013 04 17 - `0.0.1` - Initial release
