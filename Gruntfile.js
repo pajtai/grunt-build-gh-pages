@@ -22,7 +22,8 @@ module.exports = function (grunt) {
         // but other values can be used
         build_branch: 'gh-pages',
         dist: 'dist',
-        pull: true
+        pull: true,
+        exclude: "excluded"
     };
 
     grunt.initConfig({
@@ -32,7 +33,8 @@ module.exports = function (grunt) {
             example: {
                 options: {
                     build_branch: "<%= config.build_branch %>",
-                    dist: "<%= config.dist %>"
+                    dist: "<%= config.dist %>",
+                    exclude: "<%= config.exclude %>"
                 }
             }
         },

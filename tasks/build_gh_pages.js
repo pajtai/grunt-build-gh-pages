@@ -17,7 +17,8 @@
  */
 module.exports = function(grunt) {
 
-    var path = require('path');
+    var path = require('path'),
+        _ = require('underscore');
 
     // Make sure grunt-shell is loaded
     // It is listed as a peer dependency
@@ -35,7 +36,8 @@ module.exports = function(grunt) {
         var options = this.options({
             dist: "dist",
             build_branch: "gh-pages",
-            pull: true
+            pull: true,
+            exclude: []
         }),
             shell = "shell",
             prefix = "build_gh_pages_",
@@ -84,23 +86,28 @@ module.exports = function(grunt) {
                     var command = "git checkout " + options.build_branch;
 
                     if (options.pull) {
-                        command += " && git pull --rebase";
+                        command += " && git pull --rebase origin " + options.build_branch;
                     }
                     return command;
                 }())
             },
+
+            excludedDirs = _.map(options.exclude, function(item) {
+                return "grep -v ^" + item;
+            }),
 
             finish =  {
                 options: {
                     stderr: true,
                     stdout: true
                 },
-
+//  + options.exclude.join("|") +
                 command:
 
 // get a list of all files in stage and delete everything except for targets, node_modules, cache, temp, and logs
 // rm does not delete root level hidden files
-                    'ls | grep -v ^' + options.dist + '$ | grep -v ^node_modules$ | xargs rm -r ' +
+                    'ls | grep -v ^' + options.dist + '$ | grep -v ^node_modules$ ' + (excludedDirs.length ? " | " +
+                        excludedDirs.join(" | ") : "") + ' | xargs rm -r ' +
 
 // copy from the stage folder to the current (root) folder
                     '&& cp -r ' + options.dist + '/* . ' +

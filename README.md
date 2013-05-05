@@ -58,7 +58,8 @@ grunt.initConfig({
 * `build_branch`: The name of the branch the build should be commited to. This branch should exist. Ideally it should be an orphan branch.
   * Default: "gh-pages"   
 * `pull`: Whether you want to the a `git pull --rebase` on the build branch before modifying it. Use this if mutliple people can build to the repo.
-  * Default: true 
+  * Default: true
+* `exclude`: An array of other directories besides `node_modules` you wish to exclude. These directories should be in the `.gitignore` of both branches.
 
 ### Usage Examples
 
@@ -86,5 +87,6 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
+* 2013 05 04 - Added ability to exclude custom directories in addition to `node_modules`
 * 2013 04 29 - Adding grunt-shell as peer dependency - upped node needed to 0.8.19 to reflect
 * 2013 04 17 - Initial release
