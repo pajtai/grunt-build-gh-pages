@@ -37,8 +37,9 @@ module.exports = function(grunt) {
             dist: "dist",
             build_branch: "gh-pages",
             pull: true,
-            exclude: []
-        }),
+            exclude: [],
+            cname: undefined
+         }),
             shell = "shell",
             prefix = "build_gh_pages_",
 
@@ -78,8 +79,12 @@ module.exports = function(grunt) {
             // Switch to the build branch and make sure it is up to date if desired
             switchBranch = {
                 options: {
-                    stderr: true,
-                        stdout: true
+                    callback    : function (err, output, stderr, cb) {
+                        if (err) {
+                            grunt.fail.fatal("Cannot proceed. There are probably uncommited changes.");
+                        }
+                        cb();
+                    },
                 },
 
                 command: (function() {
@@ -106,7 +111,7 @@ module.exports = function(grunt) {
 
 // get a list of all files in stage and delete everything except for targets, node_modules, cache, temp, and logs
 // rm does not delete root level hidden files
-                    'ls | grep -v ^' + options.dist + '$ | grep -v ^node_modules$ ' + (excludedDirs.length ? " | " +
+                    'ls | grep -v ^' + options.dist + '$ | grep -v ^CNAME$ | grep -v ^node_modules$ ' + (excludedDirs.length ? " | " +
                         excludedDirs.join(" | ") : "") + ' | xargs rm -r ' +
 
 // copy from the stage folder to the current (root) folder
@@ -125,7 +130,7 @@ module.exports = function(grunt) {
 
 // now that everything is done, we have to switch back to the branch we started from
 // the - is a shortcutl for @{-1} which means we go back to the previous branch
-                    '&& git checkout -'
+                    '&& git checkout <%= grunt.config.get("build_gh_pages_.branch") %>'
             };
 
         grunt.log.writeln(JSON.stringify(options));
@@ -142,12 +147,22 @@ module.exports = function(grunt) {
             grunt.file.write(build, path.existsSync(build) ? parseInt(grunt.file.read(build), 10) + 1 : 1);
         });
 
+        grunt.registerTask(prefix + "addCname", function() {
+
+            var cnameFile = "CNAME";
+            grunt.log.writeln("CNAME: " + options.cname);
+            if (options.cname) {
+                grunt.file.write(cnameFile, options.cname);
+            }
+        });
+
         // run created shell tasks
         grunt.task.run([
             "shell:" + prefix + "getRef",
             "shell:" + prefix + "getBranch",
             "shell:" + prefix + "switchBranch",
             prefix + "bumpBuild",
+            prefix + "addCname",
             "shell:" + prefix + "finish"
         ]);
     });
