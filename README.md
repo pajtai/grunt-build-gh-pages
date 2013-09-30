@@ -61,7 +61,7 @@ grunt.initConfig({
   * Default: `true`
 * `exclude`: An array of other directories besides `node_modules` you wish to exclude. These directories should be in the `.gitignore` of both branches.
   * Default: `[]`
-* `cname`: The contents of the CNAME file that defines [the custon domain for your gihub pages](https://help.github.com/articles/setting-up-a-custom-domain-with-pages).
+* `cname`: The contents of the CNAME file that defines [the custom domain for your gihub pages](https://help.github.com/articles/setting-up-a-custom-domain-with-pages).
 This allows you to have multiple orphan branches with multiple CNAMES.
   * Default: `undefined`
 
