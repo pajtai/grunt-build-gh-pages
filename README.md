@@ -30,7 +30,7 @@ grunt.loadNpmTasks('grunt-build-gh-pages');
 * You are using version of Node (0.8.19+) and NPM (1.1.6+) that support peer dependencies.
 * This task is run after you have run the build task (or as the end part of your build task)
   * The full build must be in the distribution directory at the beginning of this task.
-* A separate branch that has just the builds exists
+* A separate `--orphan` branch that has just the builds exists
 * You want to auto push to that separate branch when you run this task!
 
 ## The "build_gh_pages" task
@@ -58,12 +58,8 @@ grunt.initConfig({
 * `build_branch`: The name of the branch the build should be commited to. This branch should exist. Ideally it should be an orphan branch.
   * Default: "gh-pages"   
 * `pull`: Whether you want to the a `git pull --rebase` on the build branch before modifying it. Use this if mutliple people can build to the repo.
-  * Default: `true`
+  * Default: true
 * `exclude`: An array of other directories besides `node_modules` you wish to exclude. These directories should be in the `.gitignore` of both branches.
-  * Default: `[]`
-* `cname`: The contents of the CNAME file that defines [the custom domain for your gihub pages](https://help.github.com/articles/setting-up-a-custom-domain-with-pages).
-This allows you to have multiple orphan branches with multiple CNAMES.
-  * Default: `undefined`
 
 ### Usage Examples
 
@@ -91,7 +87,8 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-* 2013 08 08 - `0.1.0` - Adding CNAME support. Fix to not commit on original branch if cannot switch branches.
-* 2013 05 04 - `0.0.4` - Added ability to exclude custom directories in addition to `node_modules`
+* 2013 10 09 - `0.1.1` - Added warning and task stop if not on the builds directory after attempted git branch checkout
+* 2013 08 08 - `0.1.0` - CNAME support and commit message updates
+* 2013 05 04 - `0.0.3` - Added ability to exclude custom directories in addition to `node_modules`
 * 2013 04 29 - `0.0.2` - Adding grunt-shell as peer dependency - upped node needed to 0.8.19 to reflect
 * 2013 04 17 - `0.0.1` - Initial release
