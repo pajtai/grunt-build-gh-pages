@@ -1,7 +1,7 @@
 {
   "name": "grunt-build-gh-pages",
   "description": "Grunt plugin to take a build from dist on your current branch and put it into another branch, e.g. gh-pages, without merging. Ideal for when builds should be stored in orphan branches.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "homepage": "https://github.com/pajtai/grunt-build-gh-pages",
   "author": {
     "name": "Peter Ajtai",

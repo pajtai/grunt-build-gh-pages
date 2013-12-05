@@ -31,7 +31,8 @@ module.exports = function(grunt) {
                 dist: "dist",
                 build_branch: "gh-pages",
                 pull: true,
-                exclude: []
+                exclude: [],
+                copy_hidden: true
             }),
             shell = "shell",
             prefix = "build_gh_pages_",
@@ -115,16 +116,12 @@ module.exports = function(grunt) {
                     [
                         // get a list of all files in stage and delete everything except for targets, node_modules, cache, temp, and logs
                         // rm does not delete root level hidden files
-                        'ls | grep -v ^' + options.dist + '$ | grep -v ^node_modules$ ' + (excludedDirs.length ? " | " +
-                            excludedDirs.join(" | ") : "") + ' | xargs rm -r ',
-                        // copy from the stage folder to the current (root) folder
-                        'cp -r ' + options.dist + '/* ' + options.dist + '/.??* .',
+                        generateDeleteFilesCommand(options, excludedDirs),
+                        generateCopyCommand(options),
                         'rm -r ' + options.dist,
                         // add any files that may have been created
                         'git add -A ',
-                        // commit all files using the version number as the commit message
-                        // <%= %> is grunt templating
-                        'git commit -am "Build: <%= grunt.file.read(".build") %> Branch: <%= grunt.config.get("build_gh_pages_.branch") %> <%= grunt.config.get("build_gh_pages_.version") %> SHA: <%= grunt.config.get("build_gh_pages_.shaRef") %>"',
+                        generateGitCommitCommand(),
                         // push changes to gitlab
                         'git push origin ' + options.build_branch,
                         // now that everything is done, we have to switch back to the branch we started from
@@ -159,5 +156,39 @@ module.exports = function(grunt) {
             "shell:" + prefix + "finish"
         ]);
     });
+
+    // TODO: use grunt-clean instead
+    function generateDeleteFilesCommand(options, excludedDirs) {
+        return 'ls | ' +
+            'grep -v ^' + options.dist + '$ | ' +
+            'grep -v ^node_modules$ ' +
+            (excludedDirs.length ?
+                " | " + excludedDirs.join(" | ") :
+                "") +
+            ' | ' +
+            'xargs rm -r '
+    }
+
+    // copy from the stage folder to the current (root) folder
+    // TODO: use grunt copy instead
+    function generateCopyCommand(options) {
+        var cp = 'cp -r ',
+            from = path.normalize(options.dist + '/*'),
+            to = ' .';
+
+        if (grunt.config.get('build_gh_pages.copy_hidden')) {
+            from += ' ' + path.normalize(options.dist + '/.??*');
+        }
+        return cp + from + to;
+    }
+
+    // commit all files using the version number as the commit message
+    // <%= %> is grunt templating
+    function generateGitCommitCommand() {
+        return 'git commit -am "' +
+            'Build: <%= grunt.file.read(".build") %> ' +
+            'Branch: <%= grunt.config.get("build_gh_pages_.branch") %> <%= grunt.config.get("build_gh_pages_.version") %> ' +
+            'SHA: <%= grunt.config.get("build_gh_pages_.shaRef") %>"';
+    }
 
 };
