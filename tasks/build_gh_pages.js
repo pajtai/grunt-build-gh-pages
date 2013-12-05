@@ -118,7 +118,7 @@ module.exports = function(grunt) {
                         'ls | grep -v ^' + options.dist + '$ | grep -v ^node_modules$ ' + (excludedDirs.length ? " | " +
                             excludedDirs.join(" | ") : "") + ' | xargs rm -r ',
                         // copy from the stage folder to the current (root) folder
-                        'cp -r ' + options.dist + '/* .',
+                        'cp -r ' + options.dist + '/* ' + options.dist + '/.??* .',
                         'rm -r ' + options.dist,
                         // add any files that may have been created
                         'git add -A ',
