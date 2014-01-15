@@ -54,9 +54,9 @@ grunt.initConfig({
 ### Options
 
 * `dist`: The directory the build is placed in. This directory should be gitignored in your current branch and the build branch.
-  * Default: "dist" 
+  * Default: "dist"
 * `build_branch`: The name of the branch the build should be commited to. This branch should exist. Ideally it should be an orphan branch.
-  * Default: "gh-pages"   
+  * Default: "gh-pages"
 * `pull`: Whether you want to the a `git pull --rebase` on the build branch before modifying it. Use this if mutliple people can build to the repo.
   * Default: true
 * `exclude`: An array of other directories besides `node_modules` you wish to exclude. These directories should be in the `.gitignore` of both branches.
@@ -89,6 +89,7 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
+* 2014 01 15 - `0.1.3` - Starring peer dependenices so that npm install will work in a more realistic range of cases - adding cname support back in
 * 2013 12 04 - `0.1.2` - Added copying of hidden files in root level of dist directory to final deploy directory. Normalized paths.
 * 2013 10 09 - `0.1.1` - Added warning and task stop if not on the builds directory after attempted git branch checkout
 * 2013 08 08 - `0.1.0` - CNAME support and commit message updates

@@ -146,6 +146,15 @@ module.exports = function(grunt) {
             grunt.file.write(build, path.existsSync(build) ? parseInt(grunt.file.read(build), 10) + 1 : 1);
         });
 
+        grunt.registerTask(prefix + "addCname", function() {
+
+            var cnameFile = "CNAME";
+            grunt.log.writeln("CNAME: " + options.cname);
+            if (options.cname) {
+                grunt.file.write(cnameFile, options.cname);
+            }
+        });
+
         // run created shell tasks
         grunt.task.run([
             "shell:" + prefix + "getRef",
@@ -153,6 +162,7 @@ module.exports = function(grunt) {
             "shell:" + prefix + "switchBranch",
             "shell:" + prefix + "verifyBranch",
             prefix + "bumpBuild",
+            prefix + "addCname",
             "shell:" + prefix + "finish"
         ]);
     });
