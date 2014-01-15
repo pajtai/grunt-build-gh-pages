@@ -151,7 +151,7 @@ module.exports = function(grunt) {
             var cnameFile = "CNAME";
             grunt.log.writeln("CNAME: " + options.cname);
             if (options.cname) {
-                grunt.file.write(cnameFile, options.cname);
+                grunt.file.write(path.normalize(options.dist + '/' + cnameFile), options.cname);
             }
         });
 
