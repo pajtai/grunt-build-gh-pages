@@ -89,7 +89,7 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-* 2014 01 15 - `0.1.3` - Starring peer dependenices so that npm install will work in a more realistic range of cases - adding cname support back in
+* 2014 01 16 - `0.1.4` - Starring peer dependenices so that npm install will work in a more realistic range of cases - adding cname support back in - npm dependencies bug fix for `0.1.3`
 * 2013 12 04 - `0.1.2` - Added copying of hidden files in root level of dist directory to final deploy directory. Normalized paths.
 * 2013 10 09 - `0.1.1` - Added warning and task stop if not on the builds directory after attempted git branch checkout
 * 2013 08 08 - `0.1.0` - CNAME support and commit message updates
