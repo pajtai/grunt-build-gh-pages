@@ -61,7 +61,7 @@ grunt.initConfig({
   * Default: true
 * `exclude`: An array of other directories besides `node_modules` you wish to exclude. These directories should be in the `.gitignore` of both branches.
 * `copy_hidden`: If this value is truthy. Hidden files will be copied from the root dist directory to the final build directory. Hidden files in subfolders of dist are automatically copied.
-  * Default: true
+  * Default: false
 
 ### Usage Examples
 
@@ -89,6 +89,7 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
+* 2014 01 16 - `0.1.6` - setting default copy_hidden to false, so it doesn't break things if there are no hidden files in your build dir
 * 2014 01 16 - `0.1.5` - copy_hidden update
 * 2014 01 16 - `0.1.4` - Starring peer dependenices so that npm install will work in a more realistic range of cases - adding cname support back in - npm dependencies bug fix for `0.1.3`
 * 2013 12 04 - `0.1.2` - Added copying of hidden files in root level of dist directory to final deploy directory. Normalized paths.

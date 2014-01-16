@@ -32,7 +32,7 @@ module.exports = function(grunt) {
                 build_branch: "gh-pages",
                 pull: true,
                 exclude: [],
-                copy_hidden: true
+                copy_hidden: false
             }),
             shell = "shell",
             prefix = "build_gh_pages_",
