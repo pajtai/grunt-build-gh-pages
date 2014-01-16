@@ -110,9 +110,7 @@ module.exports = function(grunt) {
                         cwd: options.dist + "/",
                         src: ['**'],
                         dest: process.cwd(),
-                        dot: (function(){
-                            return grunt.config.get('build_gh_pages.copy_hidden');
-                        })()
+                        dot: options.copy_hidden
                     }
                 ]
             },
@@ -127,13 +125,7 @@ module.exports = function(grunt) {
                 },                
                 files: [{
                     force: true,
-                    src: (function(){
-                        var arr = ['./**', '!.', '!..', '!./.git/**', '!./node_modules/**', '!./' + options.dist + "/**"];
-                        _.each(options.exclude, function(item){
-                            arr.push('!' + item);
-                        });
-                        return arr;
-                    })()
+                    src: buildCleanProjFileList()
                 }]
             },
 
@@ -211,4 +203,11 @@ module.exports = function(grunt) {
             'SHA: <%= grunt.config.get("build_gh_pages_.shaRef") %>"';
     }
 
+    function buildCleanProjFileList() {
+        var arr = ['./**', '!.', '!..', '!./.git/**', '!./node_modules/**', '!./' + options.dist + "/**"];
+        _.each(options.exclude, function(item){
+            arr.push('!' + item);
+        });
+        return arr;
+    }
 };
