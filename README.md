@@ -89,6 +89,7 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
+* 2014 01 16 - `0.1.7` - copy_hidden bug fix
 * 2014 01 16 - `0.1.6` - setting default copy_hidden to false, so it doesn't break things if there are no hidden files in your build dir
 * 2014 01 16 - `0.1.5` - copy_hidden update
 * 2014 01 16 - `0.1.4` - Starring peer dependenices so that npm install will work in a more realistic range of cases - adding cname support back in - npm dependencies bug fix for `0.1.3`
