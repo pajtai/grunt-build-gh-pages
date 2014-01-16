@@ -125,7 +125,7 @@ module.exports = function(grunt) {
                 },                
                 files: [{
                     force: true,
-                    src: buildCleanProjFileList()
+                    src: buildCleanProjFileList(options.dist, options.exclude)
                 }]
             },
 
@@ -203,9 +203,9 @@ module.exports = function(grunt) {
             'SHA: <%= grunt.config.get("build_gh_pages_.shaRef") %>"';
     }
 
-    function buildCleanProjFileList() {
-        var arr = ['./**', '!.', '!..', '!./.git/**', '!./node_modules/**', '!./' + options.dist + "/**"];
-        _.each(options.exclude, function(item){
+    function buildCleanProjFileList(target, exclusions) {
+        var arr = ['./**', '!.', '!..', '!./.git/**', '!./node_modules/**', '!./' + target + "/**"];
+        _.each(exclusions, function(item){
             arr.push('!' + item);
         });
         return arr;
