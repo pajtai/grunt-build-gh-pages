@@ -8,15 +8,15 @@
 
 'use strict';
 
-// TODO: use something Thor like to manage all these shell tasks
 module.exports = function(grunt) {
 
     var path = require('path'),
         _ = require('underscore');
 
-    // Make sure grunt-shell is loaded
-    // It is listed as a peer dependency
+    // Make sure grunt-dependecies are loaded
     grunt.loadNpmTasks('grunt-shell');
+    grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-clean');
 
     // Please see the Grunt documentation for more information regarding task
     // creation: http://gruntjs.com/creating-tasks
@@ -102,32 +102,59 @@ module.exports = function(grunt) {
                 }())
             },
 
-            excludedDirs = _.map(options.exclude, function(item) {
-                return "grep -v ^" + item;
-            }),
+            copy = {
+                files: [
+                    {
+                        expand: true,
+                        cwd: options.dist + "/",
+                        src: ['**'],
+                        dest: process.cwd(),
+                        dot: options.copy_hidden
+                    }
+                ]
+            },
 
-            finish = {
+            cleanDist = {
+                files: [{src: [options.dist]}]
+            },
+
+            cleanProj = {
+                options: {
+                    force: true
+                },                
+                files: [{
+                    force: true,
+                    src: buildCleanProjFileList(options.dist, options.exclude)
+                }]
+            },
+
+            commit = {
                 options : {
                     stderr : true,
                     stdout : true
                 },
-                //  + options.exclude.join("|") +
-                command :
-                    [
-                        // get a list of all files in stage and delete everything except for targets, node_modules, cache, temp, and logs
-                        // rm does not delete root level hidden files
-                        generateDeleteFilesCommand(options, excludedDirs),
-                        generateCopyCommand(options),
-                        'rm -r ' + options.dist,
-                        // add any files that may have been created
-                        'git add -A ',
-                        generateGitCommitCommand(),
-                        // push changes to gitlab
-                        'git push origin ' + options.build_branch,
-                        // now that everything is done, we have to switch back to the branch we started from
-                        'git checkout <%= grunt.config.get("build_gh_pages_.branch") %>'
-                    ].join('&&')
+                command : [
+                    'git add -A',
+                    generateGitCommitCommand()
+                ].join(' && ')
+            },
+
+            push = {
+                options : {
+                    stderr : true,
+                    stdout : true
+                },
+                command : 'git push origin ' + options.build_branch
+            },
+
+            checkout = {
+                options : {
+                    stderr : true,
+                    stdout : true
+                },
+                command :'git checkout <%= grunt.config.get("build_gh_pages_.branch") %>'
             };
+
 
         grunt.log
             .subhead("build gh pages options:")
@@ -138,11 +165,15 @@ module.exports = function(grunt) {
         grunt.config.set("shell." + prefix + "getBranch", getBranch);
         grunt.config.set("shell." + prefix + "switchBranch", switchBranch);
         grunt.config.set("shell." + prefix + "verifyBranch", verifyBranch);
-        grunt.config.set("shell." + prefix + "finish", finish);
+        grunt.config.set("clean." + prefix + "cleanProj", cleanProj);
+        grunt.config.set("clean." + prefix + "cleanDist", cleanDist);
+        grunt.config.set("copy." + prefix + "copy", copy);
+        grunt.config.set("shell." + prefix + "commit", commit);
+        grunt.config.set("shell." + prefix + "push", push);
+        grunt.config.set("shell." + prefix + "checkout", checkout);
 
         grunt.registerTask(prefix + "bumpBuild", function () {
             var build = ".build";
-
             grunt.file.write(build, path.existsSync(build) ? parseInt(grunt.file.read(build), 10) + 1 : 1);
         });
 
@@ -163,34 +194,14 @@ module.exports = function(grunt) {
             "shell:" + prefix + "verifyBranch",
             prefix + "bumpBuild",
             prefix + "addCname",
-            "shell:" + prefix + "finish"
+            "clean:" + prefix + "cleanProj",
+            "copy:" + prefix + "copy",
+            "clean:" + prefix + "cleanDist",
+            "shell:" + prefix + "commit",
+            "shell:" + prefix + "push",
+            "shell:" + prefix + "checkout"
         ]);
     });
-
-    // TODO: use grunt-clean instead
-    function generateDeleteFilesCommand(options, excludedDirs) {
-        return 'ls | ' +
-            'grep -v ^' + options.dist + '$ | ' +
-            'grep -v ^node_modules$ ' +
-            (excludedDirs.length ?
-                " | " + excludedDirs.join(" | ") :
-                "") +
-            ' | ' +
-            'xargs rm -r '
-    }
-
-    // copy from the stage folder to the current (root) folder
-    // TODO: use grunt copy instead
-    function generateCopyCommand(options) {
-        var cp = 'cp -r ',
-            from = path.normalize(options.dist + '/*'),
-            to = ' .';
-
-        if (options.copy_hidden) {
-            from += ' ' + path.normalize(options.dist + '/.??*');
-        }
-        return cp + from + to;
-    }
 
     // commit all files using the version number as the commit message
     // <%= %> is grunt templating
@@ -201,4 +212,11 @@ module.exports = function(grunt) {
             'SHA: <%= grunt.config.get("build_gh_pages_.shaRef") %>"';
     }
 
+    function buildCleanProjFileList(target, exclusions) {
+        var arr = ['./**', '!.', '!..', '!./.git/**', '!./node_modules/**', '!./' + target + "/**"];
+        _.each(exclusions, function(item){
+            arr.push('!' + item);
+        });
+        return arr;
+    }
 };

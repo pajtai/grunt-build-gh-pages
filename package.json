@@ -41,6 +41,8 @@
   "peerDependencies": {
     "grunt": "*",
     "grunt-shell": "*"
+    "grunt-contrib-copy": "*",
+    "grunt-contrib-clean": "*",
   },
   "keywords": [
     "gruntplugin",
