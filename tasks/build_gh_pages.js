@@ -186,7 +186,7 @@ module.exports = function(grunt) {
             from = path.normalize(options.dist + '/*'),
             to = ' .';
 
-        if (grunt.config.get('build_gh_pages.copy_hidden')) {
+        if (grunt.config.get(options.copy_hidden)) {
             from += ' ' + path.normalize(options.dist + '/.??*');
         }
         return cp + from + to;
