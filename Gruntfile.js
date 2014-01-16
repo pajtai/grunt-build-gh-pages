@@ -28,7 +28,9 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         config: config,
-        clean: ['dist'],
+        clean: {
+            short : ['dist']
+        },
         build_gh_pages: {
             example: {
                 options: {

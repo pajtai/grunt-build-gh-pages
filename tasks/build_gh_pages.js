@@ -8,7 +8,6 @@
 
 'use strict';
 
-// TODO: use something Thor like to manage all these shell tasks
 module.exports = function(grunt) {
 
     var path = require('path'),
@@ -33,7 +32,7 @@ module.exports = function(grunt) {
                 build_branch: "gh-pages",
                 pull: true,
                 exclude: [],
-                copy_hidden: true
+                copy_hidden: false
             }),
             shell = "shell",
             prefix = "build_gh_pages_",
@@ -178,6 +177,15 @@ module.exports = function(grunt) {
             grunt.file.write(build, path.existsSync(build) ? parseInt(grunt.file.read(build), 10) + 1 : 1);
         });
 
+        grunt.registerTask(prefix + "addCname", function() {
+
+            var cnameFile = "CNAME";
+            grunt.log.writeln("CNAME: " + options.cname);
+            if (options.cname) {
+                grunt.file.write(path.normalize(options.dist + '/' + cnameFile), options.cname);
+            }
+        });
+
         // run created shell tasks
         grunt.task.run([
             "shell:" + prefix + "getRef",
@@ -185,6 +193,7 @@ module.exports = function(grunt) {
             "shell:" + prefix + "switchBranch",
             "shell:" + prefix + "verifyBranch",
             prefix + "bumpBuild",
+            prefix + "addCname",
             "clean:" + prefix + "cleanProj",
             "copy:" + prefix + "copy",
             "clean:" + prefix + "cleanDist",
