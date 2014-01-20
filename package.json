@@ -40,9 +40,9 @@
   },
   "peerDependencies": {
     "grunt": "*",
-    "grunt-shell": "*"
+    "grunt-shell": "*",
     "grunt-contrib-copy": "*",
-    "grunt-contrib-clean": "*",
+    "grunt-contrib-clean": "*"
   },
   "keywords": [
     "gruntplugin",
