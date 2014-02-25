@@ -21,7 +21,7 @@ module.exports = function(grunt) {
     // Please see the Grunt documentation for more information regarding task
     // creation: http://gruntjs.com/creating-tasks
 
-    grunt.registerMultiTask('build_gh_pages', 'Take a build from this branch to another branch.', function() {
+    grunt.registerMultiTask('buildGhPages', 'Take a build from this branch to another branch.', function() {
 
         // this.name
         // this.target
@@ -35,7 +35,7 @@ module.exports = function(grunt) {
                 copy_hidden: false
             }),
             shell = "shell",
-            prefix = "build_gh_pages_",
+            prefix = "buildGhPages_",
 
         // Get the SHA reference of the current commit
             getRef = {
@@ -152,7 +152,7 @@ module.exports = function(grunt) {
                     stderr : true,
                     stdout : true
                 },
-                command :'git checkout <%= grunt.config.get("build_gh_pages_.branch") %>'
+                command :'git checkout <%= grunt.config.get("buildGhPages_.branch") %>'
             };
 
 
@@ -208,8 +208,8 @@ module.exports = function(grunt) {
     function generateGitCommitCommand() {
         return 'git commit -am "' +
             'Build: <%= grunt.file.read(".build") %> ' +
-            'Branch: <%= grunt.config.get("build_gh_pages_.branch") %> <%= grunt.config.get("build_gh_pages_.version") %> ' +
-            'SHA: <%= grunt.config.get("build_gh_pages_.shaRef") %>"';
+            'Branch: <%= grunt.config.get("buildGhPages_.branch") %> <%= grunt.config.get("buildGhPages_.version") %> ' +
+            'SHA: <%= grunt.config.get("buildGhPages_.shaRef") %>"';
     }
 
     function buildCleanProjFileList(target, exclusions) {

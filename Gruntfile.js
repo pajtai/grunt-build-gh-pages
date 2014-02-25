@@ -28,16 +28,24 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         config: config,
+        warning : { reamde : 'Compiled file. Do not modify directly.' },
         clean: {
             short : ['dist']
         },
-        build_gh_pages: {
+        buildGhPages: {
             example: {
                 options: {
                     build_branch: "<%= config.build_branch %>",
                     dist: "<%= config.dist %>",
                     exclude: "<%= config.exclude %>"
                 }
+            }
+        },
+        releaseNotes : {
+            main : {
+                src : 'templates/README.template.md',
+                dest : 'README.md',
+                baseLinkPath : 'https://github.com/pajtai/grunt-build-gh-pages/tree/master/'
             }
         },
         copy: {
@@ -57,6 +65,6 @@ module.exports = function (grunt) {
     grunt.registerTask("build", [
         'clean',
         'copy',
-        'build_gh_pages:example'
+        'buildGhPages:example'
     ]);
 };
