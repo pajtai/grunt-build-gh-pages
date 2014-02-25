@@ -90,17 +90,6 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
-* 0.0.1 - 2013-04-17 - [patches](https://github.com/pajtai/grunt-build-gh-pages/tree/master/release_notes/0.0.1_2013-04-17.md)
-* 0.0.2 - 2013-04-27 - [patches](https://github.com/pajtai/grunt-build-gh-pages/tree/master/release_notes/0.0.2_2013-04-27.md)
-* 0.0.3 - 2013-05-04 - [patches](https://github.com/pajtai/grunt-build-gh-pages/tree/master/release_notes/0.0.3_2013-05-04.md)
-* 0.1.0 - 2013_08_08 - [features](https://github.com/pajtai/grunt-build-gh-pages/tree/master/release_notes/0.1.0_2013_08_08.md)
-* 0.1.1 - 2013-10-09 - [patches](https://github.com/pajtai/grunt-build-gh-pages/tree/master/release_notes/0.1.1_2013-10-09.md)
-* 0.1.2 - 2013-12-04 - [patches](https://github.com/pajtai/grunt-build-gh-pages/tree/master/release_notes/0.1.2_2013-12-04.md)
-* 0.1.4 - 2014-01-16 - [patches](https://github.com/pajtai/grunt-build-gh-pages/tree/master/release_notes/0.1.4_2014-01-16.md)
-* 0.1.5 - 2014-01-16 - [patches](https://github.com/pajtai/grunt-build-gh-pages/tree/master/release_notes/0.1.5_2014-01-16.md)
-* 0.1.6 - 2014-01-16 - [patches](https://github.com/pajtai/grunt-build-gh-pages/tree/master/release_notes/0.1.6_2014-01-16.md)
-* 0.1.7 - 2014-01-16 - [patches](https://github.com/pajtai/grunt-build-gh-pages/tree/master/release_notes/0.1.7_2014-01-16.md)
-* 0.2.0 - 2014-02-24 - [features](https://github.com/pajtai/grunt-build-gh-pages/tree/master/release_notes/0.2.0_2014-02-24.md)
+<%= releaseNotes.notes %>
 
-
-undefined Created: 2014-02-24 11:10:10_
+<%= warning.readme  + ' Created: ' + grunt.template.today('yyyy-mm-dd hh:MM:ss') %>_
