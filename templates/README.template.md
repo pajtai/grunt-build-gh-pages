@@ -2,10 +2,6 @@
 
 > Grunt plugin to take a build from dist on your current branch and put it into another branch, e.g. gh-pages, without merging. Ideal for when builds should be stored in orphan branches.
 
-## Note
-
-Tested on a Mac. Seems to currently have issues on Windows.
-
 ## Working Example
 
 If you'd like to play around with a working example, fork [exploratory-javascript-tests](https://github.com/pajtai/exploratory-javascript-tests), and run `npm install && grunt build`, then look at the `gh-pages` branch.
