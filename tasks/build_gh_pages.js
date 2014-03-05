@@ -121,7 +121,7 @@ module.exports = function(grunt) {
             cleanProj = {
                 options: {
                     force: true
-                },                
+                },
                 files: [{
                     force: true,
                     src: buildCleanProjFileList(options.dist, options.exclude)
@@ -206,7 +206,7 @@ module.exports = function(grunt) {
     // commit all files using the version number as the commit message
     // <%= %> is grunt templating
     function generateGitCommitCommand() {
-        return 'git commit -am "' +
+        return 'git commit -anm "' +
             'Build: <%= grunt.file.read(".build") %> ' +
             'Branch: <%= grunt.config.get("buildGhPages_.branch") %> <%= grunt.config.get("buildGhPages_.version") %> ' +
             'SHA: <%= grunt.config.get("buildGhPages_.shaRef") %>"';
