@@ -11,15 +11,60 @@ This plugin requires Grunt `~0.4.1`
 
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
-```shell
-npm install grunt-build-gh-pages --save-dev
-```
+1. Install grunt-build-gh-pages
+	```shell
+	npm install grunt-build-gh-pages --save-dev
+	```
+	
+	One the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
+	
+2. Add an option to Gruntfile
 
-One the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
+	(from usuage example)
+	
+	```js
+	grunt.initConfig({
+	  buildGhPages: {
+	    ghPages: {
+	      options: {
+	        build_branch: "gh-pages",
+	        dist: "dist",
+	        exclude: ['node_modules', '.tmp', '.sass-cache', 'app/bower_components'],
+	      }
+	    }
+	  },
+	})
+	```
 
-```js
-grunt.loadNpmTasks('grunt-build-gh-pages');
-```
+3. Register task to Gruntfile
+	```js
+	grunt.registerTask('deploy', [
+	  'buildGhPages:ghPages',
+	]);
+	```
+	
+	if you constructed an environment using Yeoman, add `'build'` task to avoid removing bower components.
+	```js
+	grunt.registerTask('deploy', [
+	  'build',
+	  'buildGhPages',
+	]);
+	```
+
+4. Add a files in exclude option to .gitignore to your production branch
+	```shell
+	node_modules
+	.tmp
+	.sass-cache
+	app/bower_components]
+	```
+
+5. Commit your changes before deploying
+
+6. Deploy and ENJOY!
+	```shell
+	$ grunt deploy
+	```
 
 ## Assumptions
 
@@ -58,6 +103,8 @@ grunt.initConfig({
 * `exclude`: An array of other directories besides `node_modules` you wish to exclude. These directories should be in the `.gitignore` of both branches.
 * `copy_hidden`: If this value is truthy. Hidden files will be copied from the root dist directory to the final build directory. Hidden files in subfolders of dist are automatically copied.
   * Default: false
+* `cname` : add CNAME support to github pages
+  * Default: fasle
 
 ### Usage Examples
 
