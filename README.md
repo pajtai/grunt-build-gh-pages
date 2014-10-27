@@ -55,7 +55,7 @@ grunt.initConfig({
   * Default: "gh-pages"
 * `pull`: Whether you want to the a `git pull --rebase` on the build branch before modifying it. Use this if mutliple people can build to the repo.
   * Default: true
-* `exclude`: An array of other directories besides `node_modules` you wish to exclude. These directories should be in the `.gitignore` of both branches.
+* `exclude`: An array of other directories besides `node_modules` you wish to exclude. These directories should be in the `.gitignore` of both branches, or at least one. For example if you have a submodule called `api`. `api` should be in the `.gitignore` of the build branch, and the exclude array should be `['./api/**']`.
 * `copy_hidden`: If this value is truthy. Hidden files will be copied from the root dist directory to the final build directory. Hidden files in subfolders of dist are automatically copied.
   * Default: false
 
