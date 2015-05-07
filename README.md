@@ -55,7 +55,7 @@ grunt.initConfig({
   * Default: "gh-pages"
 * `pull`: Whether you want to the a `git pull --rebase` on the build branch before modifying it. Use this if mutliple people can build to the repo.
   * Default: true
-* `exclude`: An array of other directories besides `node_modules` you wish to exclude. These directories should be in the `.gitignore` of both branches, or at least one. For example if you have a submodule called `api`. `api` should be in the `.gitignore` of the build branch, and the exclude array should be `['./api/**']`.
+* `exclude`: An array of other directories besides `node_modules` you wish to exclude. These directories should be in the `.gitignore` of both branches.
 * `copy_hidden`: If this value is truthy. Hidden files will be copied from the root dist directory to the final build directory. Hidden files in subfolders of dist are automatically copied.
   * Default: false
 
@@ -98,6 +98,9 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 * 0.1.7 - 2014-01-16 - [patches](https://github.com/pajtai/grunt-build-gh-pages/tree/master/release_notes/0.1.7_2014-01-16.md)
 * 1.0.0 - 2014-02-24 - [backward incompatibilities](https://github.com/pajtai/grunt-build-gh-pages/tree/master/release_notes/1.0.0_2014-02-24.md)
 * 1.0.1 - 2014-02-25 - [patches](https://github.com/pajtai/grunt-build-gh-pages/tree/master/release_notes/1.0.1_2014-02-25.md)
+* 1.0.2 - 2014-03-04 - [patches](https://github.com/pajtai/grunt-build-gh-pages/tree/master/release_notes/1.0.2_2014-03-04.md)
+* 1.0.3 - 2014-03-04 - [patches](https://github.com/pajtai/grunt-build-gh-pages/tree/master/release_notes/1.0.3_2014-03-04.md)
+* 1.0.4 - 2015-05-07 - [patches](https://github.com/pajtai/grunt-build-gh-pages/tree/master/release_notes/1.0.4_2015-05-07.md)
 
 
-undefined Created: 2014-02-24 11:59:02_
+undefined Created: 2015-05-07 03:37:24_
