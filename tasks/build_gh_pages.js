@@ -2,16 +2,17 @@
  * grunt-build-gh-pages
  * https://github.com/pajtai/grunt-build-gh-pages
  *
- * Copyright (c) 2013 Peter Ajtai
+ * Copyright (c) Peter Ajtai
  * Licensed under the MIT license.
  */
 
 'use strict';
 
-module.exports = function(grunt) {
+var fs = require('fs'),
+    path = require('path'),
+    _ = require('underscore');
 
-    var path = require('path'),
-        _ = require('underscore');
+module.exports = function(grunt) {
 
     // Make sure grunt-dependecies are loaded
     grunt.loadNpmTasks('grunt-shell');
@@ -174,7 +175,7 @@ module.exports = function(grunt) {
 
         grunt.registerTask(prefix + "bumpBuild", function () {
             var build = ".build";
-            grunt.file.write(build, path.existsSync(build) ? parseInt(grunt.file.read(build), 10) + 1 : 1);
+            grunt.file.write(build, fs.existsSync(build) ? parseInt(grunt.file.read(build), 10) + 1 : 1);
         });
 
         grunt.registerTask(prefix + "addCname", function() {
