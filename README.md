@@ -58,6 +58,7 @@ grunt.initConfig({
 * `exclude`: An array of other directories besides `node_modules` you wish to exclude. These directories should be in the `.gitignore` of both branches.
 * `copy_hidden`: If this value is truthy. Hidden files will be copied from the root dist directory to the final build directory. Hidden files in subfolders of dist are automatically copied.
   * Default: false
+  * Hint: if dot files are not being copied over, confirm that they are present in the build directory!
 
 ### Usage Examples
 
