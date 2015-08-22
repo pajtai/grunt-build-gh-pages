@@ -58,7 +58,6 @@ grunt.initConfig({
 * `exclude`: An array of other directories besides `node_modules` you wish to exclude. These directories should be in the `.gitignore` of both branches.
 * `copy_hidden`: If this value is truthy. Hidden files will be copied from the root dist directory to the final build directory. Hidden files in subfolders of dist are automatically copied.
   * Default: false
-  * Hint: if dot files are not being copied over, confirm that they are present in the build directory!
 
 ### Usage Examples
 
@@ -102,6 +101,7 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 * 1.0.2 - 2014-03-04 - [patches](https://github.com/pajtai/grunt-build-gh-pages/tree/master/release_notes/1.0.2_2014-03-04.md)
 * 1.0.3 - 2014-03-04 - [patches](https://github.com/pajtai/grunt-build-gh-pages/tree/master/release_notes/1.0.3_2014-03-04.md)
 * 1.0.4 - 2015-05-07 - [patches](https://github.com/pajtai/grunt-build-gh-pages/tree/master/release_notes/1.0.4_2015-05-07.md)
+* 1.0.5 - 2015-08-22 - [patches](https://github.com/pajtai/grunt-build-gh-pages/tree/master/release_notes/1.0.5_2015-08-22.md)
 
 
-undefined Created: 2015-05-07 03:37:24_
+undefined Created: 2015-08-22 07:52:41_

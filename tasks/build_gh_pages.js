@@ -174,8 +174,12 @@ module.exports = function(grunt) {
         grunt.config.set("shell." + prefix + "checkout", checkout);
 
         grunt.registerTask(prefix + "bumpBuild", function () {
-            var build = ".build";
-            grunt.file.write(build, fs.existsSync(build) ? parseInt(grunt.file.read(build), 10) + 1 : 1);
+            var build = ".build",
+                buildFileStats;
+
+            buildFileStats = fs.lstatSync(build);
+
+            grunt.file.write(build, buildFileStats.isFile() ? parseInt(grunt.file.read(build), 10) + 1 : 1);
         });
 
         grunt.registerTask(prefix + "addCname", function() {
